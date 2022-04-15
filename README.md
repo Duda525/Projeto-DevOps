@@ -1,1 +1,2 @@
-# Projeto-DevOps
+# Grupo-Condet
+Repositório de grupo
