@@ -1,136 +1,176 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-     <link rel="stylesheet" href="style.css"> 
-    <!--<link rel="icon" href="Favicon.png">-->
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-    <title>Sistema de Leilão</title>
-</head>
-
-
-<body>
-    <script>
-
-function getUser1() { // Procura o valor da chave "username" no cookie
-let decodedCookie = decodeURIComponent(document.cookie); // Limpa caracteres especiais no cookie
-  let ca = decodedCookie.split( ';' ); // Quebra o cookie numa lista de strings nos ";"
-  for( let i = 0; i < ca.length; i++ )
-    if( ca[i].indexOf( "username=" ) == 0 ) // Se tem a chave "username="
-      return ca[i].substring( "username=".length, ca[i].length ) // retorna seu valor
-
-    return "";
-}
-
-window.onload = function(){
-    if( getUser1() != "" ){
-        //window.location.href = "cadastro-oferta.html";
-    }else {
-        alert("Acesso proibido");
-        alert("Efetue Logon!");
-        window.location.href = "login.html"
-    }
-}
-
-        function enviaMsg() {
-          const xhttp = new XMLHttpRequest();
-        
-          xhttp.onreadystatechange = function() {
-            console.log("readyState:" + this.readyState);
-            console.log("status:" + this.status);
-        
-            if (this.readyState == 4 && this.status == 200) {
-              imprimeResposta(this);
-              
-            }
-          };
-        
-          xhttp.onload = function() {
-            alert(this.responseText);
-          };
-        
-          document.getElementById("saida").innerHTML = "mensagem enviada";
-          var data = {
-          "lance-min":document.getElementById("valor-lance").value,
-          "descri":document.getElementById("text-descri").value,
-          "from":document.getElementById("from").value
-        };
-          var jsondata = JSON.stringify(data);
-          var url = "https://91qasmc517.execute-api.us-east-1.amazonaws.com/Cadastra-Produto";
-          xhttp.open("POST", url);
-          xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-          xhttp.send(jsondata);
-        }
-        
-        function imprimeResposta(xml) {
-          var xmlDoc = xml.responseXML;
-          document.getElementById("resposta").innerHTML = xmlDoc;
-        }
-        </script>
 <html>
+<head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+      <!-- Fonts -->
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+  
+       <link rel="stylesheet" href="style.css"> 
+      <!--<link rel="icon" href="Favicon.png">-->
+  
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  
+      <title>Sistema de Leilão</title>
+</head>
+<!--<style>
+    @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-    <main class="login-form" >
-        <div class="cotainer" >
-            <div class="row justify-content-center" >
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header" id="saida">Cadastre seu produto</div>
-                        <div class="card-body">
-                            <form action="" method="post">
-                                <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-md-right" for="from">Nome do produto:</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="from" class="form-control" name="from" required autofocus Size="20" MaxLength="50">
-                                    </div>
-                                </div>
-    
-                                <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-md-right" for="text-descri">Descrição:</label>
-                                    <div class="col-md-6">
-                                        <textarea name="text-descri" id="text-descri"  rows="3" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-md-right" for="valor-lance">Lance mínimo:</label>
-                                    <div class="col-md-4">
-                                        <input type="text" id="valor-lance" name="valor-lance" class="form-control"  required autofocus Size="20" MaxLength="50">
-                                    </div>
-                                </div>
- 
 
-    
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="button" class="btn btn-primary" onclick="enviaMsg()">
-                                        Enviar
-                                    </button>
-                                    <button type="button" class="btn btn-primary"><a href="menu-principal.html" style="color: white;">Voltar</a></button>
-                                    <!--<a href="#" class="btn btn-link">
-                                        Forgot Your Password?
-                                    </a> -->
-                                </div>
+body{
+    margin: 0;
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+    background-color: #f5f8fa;
+}
 
+.navbar-laravel
+{
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+}
+
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    font-family: Raleway, sans-serif;
+}
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 12.5rem;
+    padding-bottom: 12.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+</style>-->
+<body>
+<script> 
+
+function enviaMsg() {
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    console.log("readyState:" + this.readyState);
+	console.log("status:" + this.status);
+
+    if (this.readyState == 4 && this.status == 200) {
+      imprimeResposta(this);
+      
+    }
+  };
+
+  xhttp.onload = function() {
+    document.getElementById("resposta").innerHTML = this.responseText;
+  };
+
+  document.getElementById("saida").innerHTML = "mensagem enviada";
+  var data = {
+  "bid":document.getElementById("bid").value,
+  "from":document.getElementById("from").value};
+  var jsondata = JSON.stringify(data);
+  var url = "https://8kt1t5xqu3.execute-api.us-east-1.amazonaws.com/TesteInicial";
+  xhttp.open("POST", url);
+  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.send(jsondata);
+}
+
+function imprimeResposta(xml) {
+  var xmlDoc = xml.responseXML;
+  document.getElementById("resposta").innerHTML = xmlDoc;
+}
+</script>
+
+<main class="login-form" >
+    <div class="cotainer" >
+        <div class="row justify-content-center" >
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header" id="saida">Envia ao pressionar o botão</div>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" for="from">Usuario:</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="from" class="form-control" name="from" required autofocus Size="20" MaxLength="50">
+                                </div>
                             </div>
-                        </form>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" for="bid">Lance:</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="bid" class="form-control" required name="bid" Size="20" MaxLength="50">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <div class="checkbox">
+                                        <label>Resposta:</label>
+                                        <span id="resposta">---------</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="button" class="btn btn-primary" onclick="enviaMsg()">
+                                    Enviar
+                                </button>
+                                <button type="button" class="btn btn-primary"><a href="menu-principal.html" style="color: white;">Voltar</a></button>
+                                <!--<a href="#" class="btn btn-link">
+                                    Forgot Your Password?
+                                </a> -->
+                            </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
-        </div>
-    
-    </main>
+    </div>
+    </div>
 
-</html>
+</main>
+
+<!--<p id="saida">Envia ao pressionar o botao</p>
+<br><br>
+<table>
+	<tr>
+	<td><LABEL for="from">Usuario:</LABEL>
+	<td><INPUT Type = "Text" id="from" Name="from" Size="20" MaxLength="50"><BR></INPUT>
+	<tr>
+	<td><LABEL for="bid">Lance:</LABEL>
+	<td><INPUT Type = "Text" id="bid" Name="bid" Size="20" MaxLength="50"><BR></INPUT>
+</table>
+
+<button type="button" onclick="enviaMsg()">Envia</button>
+
+<br><br><br>
+Resposta:
+<br>
+<span id="resposta">---------</span> -->
 </body>
+</html>
